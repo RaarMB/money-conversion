@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/black"
+    app:layoutDescription="@xml/scene_splash">
+
+    <ImageView
+        android:id="@+id/imageViewPeso2"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        app:srcCompat="@drawable/ic_peso"
+        tools:layout_editor_absoluteX="345dp"
+        tools:layout_editor_absoluteY="300dp"
+        android:contentDescription="@null"/>
+
+    <ImageView
+        android:id="@+id/imageViewPeso"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        app:srcCompat="@drawable/ic_peso"
+        tools:layout_editor_absoluteX="345dp"
+        tools:layout_editor_absoluteY="300dp"
+        android:contentDescription="@null"/>
+
+    <ImageView
+        android:id="@+id/imageViewDollar"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        app:srcCompat="@drawable/ic_dollar"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="300dp"
+        android:contentDescription="@null"/>
+
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center"
+        android:text="@string/app_name"
+        android:textColor="@color/white"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.motion.widget.MotionLayout>

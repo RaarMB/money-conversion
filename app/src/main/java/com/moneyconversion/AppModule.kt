@@ -1,0 +1,18 @@
+package com.moneyconversion
+
+import com.moneyconversion.network.ApiService
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
+import javax.inject.Singleton
+
+@InstallIn(ApplicationComponent::class)
+@Module
+class AppModule {
+
+    @Singleton
+    @Provides
+    fun providesApiService() = ApiService.create()
+
+}
