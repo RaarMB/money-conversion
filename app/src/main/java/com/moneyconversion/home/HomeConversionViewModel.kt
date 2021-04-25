@@ -1,6 +1,5 @@
 package com.moneyconversion.home
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
@@ -13,9 +12,12 @@ import com.moneyconversion.network.MoneyConversionRepository
 import com.moneyconversion.network.MoneyConversionRepository.Companion.MXN_CODE
 import com.moneyconversion.network.MoneyConversionRepository.Companion.USD_CODE
 import com.moneyconversion.R
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class HomeConversionViewModel @ViewModelInject constructor(
-    repository: MoneyConversionRepository
+@HiltViewModel
+class HomeConversionViewModel @Inject constructor(
+    private val repository: MoneyConversionRepository
 ) : ViewModel() {
 
     private var moniesFrom = listOf(
@@ -28,11 +30,12 @@ class HomeConversionViewModel @ViewModelInject constructor(
         Money(USD_CODE, R.mipmap.ic_usd_flag, true)
     )
 
-    fun getMoniesFrom(): LiveData<List<Money>> = liveData { moniesFrom }
+    fun getMoniesFrom() = MutableLiveData<List<Money>>().apply { value = moniesFrom }
 
-    fun getMoniesTo(): LiveData<List<Money>> = liveData { moniesTo }
+    fun getMoniesTo()= MutableLiveData<List<Money>>().apply { value = moniesTo }
 
     val amount = MutableLiveData<String>()
+    val conversionResult = MutableLiveData<String>()
 
     private val selectedMoneyFrom = MediatorLiveData<Money>().apply {
         addSource(getMoniesFrom()) { monies ->
@@ -74,7 +77,7 @@ class HomeConversionViewModel @ViewModelInject constructor(
         selectedMoneyTo.value = money
     }
 
-    val conversionResult: LiveData<String> =
+    fun conversion() {
         Transformations.map(
             repository.getConversion(
                 selectedMoneyFrom.value?.id.toString(),
@@ -83,10 +86,10 @@ class HomeConversionViewModel @ViewModelInject constructor(
             )
         )
         {
-            return@map when (it) {
+            conversionResult.value = when (it) {
                 is ConversionResult.ConversionSuccess -> it.result
                 is ConversionResult.ConversionError -> it.errorMessage
             }
         }
-
+    }
 }
