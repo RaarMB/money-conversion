@@ -3,15 +3,19 @@ package com.moneyconversion.model
 import com.google.gson.annotations.SerializedName
 
 data class ConversionResponse(
-    @SerializedName("query")
-    val query: Query
+    @SerializedName("success")
+    val success: Boolean,
+    @SerializedName("result")
+    val result: String?,
+    @SerializedName("error")
+    val error: Error?
 )
 
-data class Query(
-    @SerializedName("from")
-    val from: String,
-    @SerializedName("to")
-    val to: String,
-    @SerializedName("amount")
-    val amount: Int
+data class Error(
+    @SerializedName("code")
+    val code: Int,
+    @SerializedName("type")
+    val type: String,
+    @SerializedName("info")
+    val info: String
 )

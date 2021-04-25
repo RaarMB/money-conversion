@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/black"
     app:layoutDescription="@xml/scene_splash">
 
@@ -11,28 +11,28 @@
         android:id="@+id/imageViewPeso2"
         android:layout_width="64dp"
         android:layout_height="64dp"
+        android:contentDescription="@null"
         app:srcCompat="@drawable/ic_peso"
         tools:layout_editor_absoluteX="345dp"
-        tools:layout_editor_absoluteY="300dp"
-        android:contentDescription="@null"/>
+        tools:layout_editor_absoluteY="300dp" />
 
     <ImageView
         android:id="@+id/imageViewPeso"
         android:layout_width="64dp"
         android:layout_height="64dp"
+        android:contentDescription="@null"
         app:srcCompat="@drawable/ic_peso"
         tools:layout_editor_absoluteX="345dp"
-        tools:layout_editor_absoluteY="300dp"
-        android:contentDescription="@null"/>
+        tools:layout_editor_absoluteY="300dp" />
 
     <ImageView
         android:id="@+id/imageViewDollar"
         android:layout_width="64dp"
         android:layout_height="64dp"
+        android:contentDescription="@null"
         app:srcCompat="@drawable/ic_dollar"
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="300dp"
-        android:contentDescription="@null"/>
+        tools:layout_editor_absoluteY="300dp" />
 
     <TextView
         android:id="@+id/textViewTitle"

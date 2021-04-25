@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="com.moneyconversion.home.HomeConversionViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -10,7 +15,154 @@
         android:layout_height="match_parent"
         android:background="@color/black">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewInstructions"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/home_instructions"
+            android:textAlignment="center"
+            android:textColor="@color/green"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/textViewAmount"
+            android:layout_width="200dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="8dp"
+            android:backgroundTint="@color/green"
+            android:drawableStart="@drawable/ic_money"
+            android:text="@={ viewModel.amount }"
+            android:textAlignment="textEnd"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewInstructions"
+            tools:text="25.00" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayoutForm"
+            android:layout_width="135dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="8dp"
+            android:theme="@style/TextInputLayoutDropDown_Light"
+            app:layout_constraintEnd_toStartOf="@+id/appCompatImageView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewAmount"
+            app:startIconDrawable="@{ viewModel.selectedMoneyItemFrom.image }">
+
+            <AutoCompleteTextView
+                android:id="@+id/autocompleteTextViewFrom"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@={ viewModel.selectedMoneyItemFrom.id }" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/appCompatImageView"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toStartOf="@+id/textInputLayoutTo"
+            app:layout_constraintHorizontal_bias="0.445"
+            app:layout_constraintStart_toEndOf="@+id/textInputLayoutForm"
+            app:layout_constraintTop_toBottomOf="@+id/textViewAmount"
+            app:srcCompat="@drawable/ic_convert_arrows" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayoutTo"
+            android:layout_width="135dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="8dp"
+            android:theme="@style/TextInputLayoutDropDown_Light"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/appCompatImageView"
+            app:layout_constraintTop_toBottomOf="@+id/textViewAmount"
+            app:startIconDrawable="@{ viewModel.selectedMoneyItemTo.image }">
+
+            <AutoCompleteTextView
+                android:id="@+id/autocompleteTextViewTo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@={ viewModel.selectedMoneyItemTo.id }" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="16dp"
+            android:background="@color/green"
+            android:text="@string/home_calculate"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:background="@color/gray_black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/textViewAmountResult"
+            android:layout_width="200dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:backgroundTint="@color/green"
+            android:drawableStart="@drawable/ic_money"
+            android:text="@{ viewModel.conversionResult }"
+            android:textAlignment="textEnd"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewResult"
+            tools:text="25.00" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewResult"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/home_result"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/view" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

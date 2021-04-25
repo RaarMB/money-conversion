@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Money conversion</string>
+    <string name="home_instructions">Enter the amount to which you want to apply the conversion.</string>
+    <string name="home_calculate">Calculate</string>
+    <string name="home_result">Result</string>
+</resources>

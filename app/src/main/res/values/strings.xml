@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">Money conversion</string>
+    <string name="app_name">Conversión de moneda</string>
+    <string name="home_instructions">Ingresa el monto al que quieres aplicar la conversión.</string>
+    <string name="home_calculate">Calcular</string>
+    <string name="home_result">Resultado</string>
+
+    <string name="home_amount" translatable="false">$0.00</string>
 </resources>

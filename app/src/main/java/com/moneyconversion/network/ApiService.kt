@@ -13,13 +13,14 @@ interface ApiService {
 
     @GET
     suspend fun getConversion(
-        @Query("access_key") accessKey: String,
+        @Query("access_key") accessKey: String = ACCESS_KEY,
         @Query("from") from: String,
         @Query("to") to: String,
         @Query("amount") amount: String
     ): ConversionResponse
 
     companion object {
+        private const val ACCESS_KEY = "ba068d9bed7c81757acf63ede6f7aa56"
         fun create(): ApiService {
             val interceptor = HttpLoggingInterceptor()
             interceptor.level = HttpLoggingInterceptor.Level.BODY

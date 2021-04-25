@@ -7,6 +7,7 @@ import com.moneyconversion.databinding.ActivityMainBinding
 import com.moneyconversion.splash.SplashConversionFragment
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
+import com.moneyconversion.splash.SplashConversionFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -32,8 +33,6 @@ class MainActivity : AppCompatActivity(), SplashConversionFragment.SplashConvers
     }
 
     override fun goToHome() {
-        // TODO navigate to home conversion
-        /*val action =
-        navController.navigate()*/
+        navController.navigate(SplashConversionFragmentDirections.actionToHomeConversion())
     }
 }
