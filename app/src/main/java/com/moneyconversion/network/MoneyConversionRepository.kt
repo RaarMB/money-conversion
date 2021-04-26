@@ -1,28 +1,16 @@
 package com.moneyconversion.network
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.liveData
-import com.moneyconversion.model.ConversionResult
 import kotlinx.coroutines.CoroutineDispatcher
-import java.lang.Exception
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class MoneyConversionRepository @Inject constructor(
     private val apiService: ApiService,
     private val coroutineDispatcher: CoroutineDispatcher
 ) {
-
-    fun getConversion(from: String, to: String, amount: String): LiveData<ConversionResult> =
-        liveData(coroutineDispatcher) {
-            try {
-                val response = apiService.getConversion(from = from, to = to, amount = amount)
-                when (response.success) {
-                    true -> emit(ConversionResult.ConversionSuccess(response.result.toString()))
-                    else -> emit(ConversionResult.ConversionError(response.error?.info.toString()))
-                }
-            } catch (e: Exception) {
-                emit(ConversionResult.ConversionError(e.message.toString()))
-            }
+    suspend fun getConversion(from: String, to: String, amount: String) =
+        withContext(coroutineDispatcher) {
+            apiService.getConversion(from = from, to = to, amount = amount)
         }
 
     companion object {

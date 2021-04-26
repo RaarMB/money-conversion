@@ -29,6 +29,7 @@ class HomeConversionFragment : Fragment() {
     ): View? {
         binding = FragmentHomeConversionBinding.inflate(inflater)
         binding.viewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
         navigationToolbarDelegate?.showToolbar()
         return binding.root
     }
@@ -49,8 +50,7 @@ class HomeConversionFragment : Fragment() {
     }
 
     private fun bindViewModel() {
-        viewModel.getMoniesFrom()
-            .observe(viewLifecycleOwner, Observer(this::configureMoneyFromField))
+        viewModel.getMoniesFrom().observe(viewLifecycleOwner, Observer(this::configureMoneyFromField))
         viewModel.getMoniesTo().observe(viewLifecycleOwner, Observer(this::configureMoneyToField))
     }
 

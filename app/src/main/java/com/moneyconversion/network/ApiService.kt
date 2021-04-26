@@ -11,7 +11,7 @@ import retrofit2.http.Query
 
 interface ApiService {
 
-    @GET
+    @GET("convert")
     suspend fun getConversion(
         @Query("access_key") accessKey: String = ACCESS_KEY,
         @Query("from") from: String,

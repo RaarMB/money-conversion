@@ -21,12 +21,12 @@ android {
 
     buildTypes {
         debug {
-            buildConfigField("String", "SERVER_URL", "\"http://data.fixer.io/api/convert/\"")
+            buildConfigField("String", "SERVER_URL", "\"http://data.fixer.io/api/\"")
         }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField("String", "SERVER_URL", "\"http://data.fixer.io/api/convert/\"")
+            buildConfigField("String", "SERVER_URL", "\"http://data.fixer.io/api/\"")
         }
     }
     compileOptions {

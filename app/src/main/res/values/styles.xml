@@ -4,10 +4,10 @@
         <item name="textInputStyle">@style/TextInputLayoutDropDown</item>
         <item name="android:editable">false</item>
         <item name="colorPrimary">@color/white</item>
-        <item name="backgroundTint">@color/transparent</item>
+        <item name="backgroundTint">@color/gray_black</item>
     </style>
     <style name="TextInputLayoutDropDown" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
-        <item name="boxStrokeColor">@color/gray_black</item>
+        <item name="boxStrokeColor">@color/white</item>
         <item name="boxStrokeWidth">0dp</item>
         <item name="boxStrokeWidthFocused">0dp</item>
         <item name="boxCollapsedPaddingTop">1dp</item>

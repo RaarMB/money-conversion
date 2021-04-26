@@ -6,7 +6,7 @@ data class ConversionResponse(
     @SerializedName("success")
     val success: Boolean,
     @SerializedName("result")
-    val result: String?,
+    val result: Double?,
     @SerializedName("error")
     val error: Error?
 )

@@ -15,6 +15,18 @@
         android:layout_height="match_parent"
         android:background="@color/black">
 
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textViewInstructions"
             android:layout_width="match_parent"
@@ -25,7 +37,7 @@
             android:text="@string/home_instructions"
             android:textAlignment="center"
             android:textColor="@color/green"
-            android:textSize="30sp"
+            android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -35,7 +47,7 @@
             android:layout_width="200dp"
             android:layout_height="0dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:backgroundTint="@color/green"
             android:drawableStart="@drawable/ic_money"
@@ -44,6 +56,8 @@
             android:textColor="@color/white"
             android:textSize="24sp"
             android:textStyle="bold"
+            android:inputType="number"
+            android:maxLines="1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewInstructions"
@@ -51,13 +65,14 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayoutForm"
-            android:layout_width="135dp"
-            android:layout_height="50dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
+            android:background="@color/gray_black"
             android:theme="@style/TextInputLayoutDropDown_Light"
-            app:layout_constraintEnd_toStartOf="@+id/appCompatImageView"
+            app:layout_constraintEnd_toStartOf="@+id/textInputLayoutTo"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewAmount"
             app:startIconDrawable="@{ viewModel.selectedMoneyItemFrom.image }">
@@ -66,62 +81,60 @@
                 android:id="@+id/autocompleteTextViewFrom"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textColor="@color/white"
-                android:text="@={ viewModel.selectedMoneyItemFrom.id }" />
+                android:text="@={ viewModel.selectedMoneyItemFrom.id }"
+                android:textColor="@color/white" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/appCompatImageView"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toStartOf="@+id/textInputLayoutTo"
-            app:layout_constraintHorizontal_bias="0.445"
-            app:layout_constraintStart_toEndOf="@+id/textInputLayoutForm"
-            app:layout_constraintTop_toBottomOf="@+id/textViewAmount"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/textInputLayoutTo"
+            app:layout_constraintStart_toStartOf="@+id/textInputLayoutForm"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayoutTo"
             app:srcCompat="@drawable/ic_convert_arrows" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayoutTo"
-            android:layout_width="135dp"
-            android:layout_height="50dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:theme="@style/TextInputLayoutDropDown_Light"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/appCompatImageView"
+            app:layout_constraintStart_toEndOf="@+id/textInputLayoutForm"
             app:layout_constraintTop_toBottomOf="@+id/textViewAmount"
-            app:startIconDrawable="@{ viewModel.selectedMoneyItemTo.image }">
+            app:startIconDrawable="@drawable/ic_mxn_flag" >
 
             <AutoCompleteTextView
                 android:id="@+id/autocompleteTextViewTo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textColor="@color/white"
-                android:text="@={ viewModel.selectedMoneyItemTo.id }" />
+                android:text="@={ viewModel.selectedMoneyItemTo.id }"
+                android:textColor="@color/white" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="16dp"
-            android:background="@color/green"
+            android:background="@drawable/bg_button"
+            android:enabled="@{ viewModel.isConversionEnabled }"
+            android:onClick="@{ () -> viewModel.conversion() }"
             android:text="@string/home_calculate"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="24sp"
-            android:onClick="@{ () -> viewModel.conversion() }"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/view" />
 
         <View
             android:id="@+id/view"
@@ -141,11 +154,12 @@
             android:layout_marginEnd="8dp"
             android:backgroundTint="@color/green"
             android:drawableStart="@drawable/ic_money"
+            android:text="@{ viewModel.conversionResult }"
             android:textAlignment="textEnd"
             android:textColor="@color/white"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:text="@{ viewModel.conversionResult }"
+            android:maxLines="1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewResult"
@@ -153,10 +167,10 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textViewResult"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:text="@string/home_result"
             android:textAlignment="center"
@@ -164,7 +178,7 @@
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/view" />
+            app:layout_constraintTop_toBottomOf="@+id/button" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
