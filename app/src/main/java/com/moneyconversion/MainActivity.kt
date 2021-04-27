@@ -11,7 +11,10 @@ import com.moneyconversion.splash.SplashConversionFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(), NavigationToolbarDelegate, SplashConversionFragment.SplashConversionListener {
+class MainActivity :
+    AppCompatActivity(),
+    NavigationToolbarDelegate,
+    SplashConversionFragment.SplashConversionListener {
 
     private var _binding: ActivityMainBinding? = null
 
@@ -22,11 +25,20 @@ class MainActivity : AppCompatActivity(), NavigationToolbarDelegate, SplashConve
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
+        setupToolbar()
+        setContentView(binding.root)
+        setupNavHost()
+    }
+
+    private fun setupToolbar() {
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
-        setContentView(binding.root)
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host) as NavHostFragment
+    }
+
+    private fun setupNavHost() {
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host) as NavHostFragment
         navController = navHostFragment.navController
         setupActionBarWithNavController(navController)
     }
@@ -46,5 +58,10 @@ class MainActivity : AppCompatActivity(), NavigationToolbarDelegate, SplashConve
 
     override fun hideToolbar() {
         supportActionBar?.hide()
+    }
+
+    override fun onBackPressed() {
+        finish()
+        super.onBackPressed()
     }
 }

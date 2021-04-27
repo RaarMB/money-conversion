@@ -3,7 +3,6 @@ package com.moneyconversion.utils
 import android.R
 import android.widget.AdapterView
 import android.widget.AutoCompleteTextView
-import com.moneyconversion.view.AutocompleteAdapterNotFilter
 
 fun <T> AutoCompleteTextView.configureNotFilterAdapter(values: List<T>, onItemClick: (T) -> Unit) {
     val adapter = AutocompleteAdapterNotFilter(

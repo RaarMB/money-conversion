@@ -6,10 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.moneyconversion.NavigationToolbarDelegate
 import com.moneyconversion.databinding.FragmentHomeConversionBinding
+import com.moneyconversion.model.HomeConversionAction
 import com.moneyconversion.model.Money
 import com.moneyconversion.utils.configureNotFilterAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -50,8 +52,10 @@ class HomeConversionFragment : Fragment() {
     }
 
     private fun bindViewModel() {
-        viewModel.getMoniesFrom().observe(viewLifecycleOwner, Observer(this::configureMoneyFromField))
+        viewModel.getMoniesFrom()
+            .observe(viewLifecycleOwner, Observer(this::configureMoneyFromField))
         viewModel.getMoniesTo().observe(viewLifecycleOwner, Observer(this::configureMoneyToField))
+        viewModel.action.observe(viewLifecycleOwner, Observer(this::handleAction))
     }
 
     private fun configureMoneyFromField(monies: List<Money>) {
@@ -66,4 +70,10 @@ class HomeConversionFragment : Fragment() {
         }
     }
 
+    private fun handleAction(action: HomeConversionAction) {
+        if (action is HomeConversionAction.HideKeyboard) {
+            val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+            imm?.hideSoftInputFromWindow(binding.root.windowToken, 0)
+        }
+    }
 }

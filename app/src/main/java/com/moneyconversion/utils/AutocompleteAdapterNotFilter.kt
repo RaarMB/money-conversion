@@ -1,4 +1,4 @@
-package com.moneyconversion.view
+package com.moneyconversion.utils
 
 import android.content.Context
 import android.widget.ArrayAdapter
