@@ -8,6 +8,11 @@ class MoneyConversionRepository @Inject constructor(
     private val apiService: ApiService,
     private val coroutineDispatcher: CoroutineDispatcher
 ) {
+    suspend fun getConversionRate() =
+        withContext(coroutineDispatcher) {
+            apiService.getConversionRate()
+        }
+
     suspend fun getConversion(from: String, to: String, amount: String) =
         withContext(coroutineDispatcher) {
             apiService.getConversion(from = from, to = to, amount = amount)

@@ -1,6 +1,7 @@
 package com.moneyconversion.network
 
 import com.moneyconversion.BuildConfig
+import com.moneyconversion.model.ConversionRateResponse
 import com.moneyconversion.model.ConversionResponse
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -10,6 +11,11 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface ApiService {
+
+    @GET("latest")
+    suspend fun getConversionRate(
+        @Query("access_key") accessKey: String = ACCESS_KEY
+    ): ConversionRateResponse
 
     @GET("convert")
     suspend fun getConversion(

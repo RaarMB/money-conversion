@@ -1,6 +1,7 @@
 package com.moneyconversion.home
 
 import android.content.Context
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.MutableLiveData
@@ -48,7 +49,12 @@ class HomeConversionViewModel @Inject constructor(
 
     val amount = MutableLiveData<String>()
     val conversionResult = MutableLiveData<String>()
+    val conversionRate = MutableLiveData<String>()
     val showProgress = MutableLiveData<Boolean>()
+
+    init {
+        getConversionRate()
+    }
 
     private val selectedMoneyFrom = MediatorLiveData<Money>().apply {
         addSource(getMoniesFrom()) { monies ->
@@ -82,6 +88,26 @@ class HomeConversionViewModel @Inject constructor(
             moneyList.first { it.id != money.id }.copy(selected = money.selected)
     }
 
+    fun getConversionRate() {
+        viewModelScope.launch {
+            showProgress.value = true
+            try {
+                val response = repository.getConversionRate()
+                when (response.success) {
+                    true -> conversionRate.value =
+                        "${context.resources.getString(R.string.home_conversion_rate)} $MXN_CODE = " +
+                                "$${String.format(DECIMAL, response.rates?.usd)} $USD_CODE - " +
+                                "${response.date}"
+                    else -> showToastError(response.error?.info.toString())
+                }
+            } catch (exception: Exception) {
+                showToastError(exception.message.toString())
+            } finally {
+                showProgress.value = false
+            }
+        }
+    }
+
     fun conversion() {
         hideKeyBoard()
         conversionResult.value = ""
@@ -93,12 +119,12 @@ class HomeConversionViewModel @Inject constructor(
                     selectedMoneyTo.value?.id.toString(),
                     amount.value.toString()
                 )
-                conversionResult.value = when (response.success) {
-                    true -> String.format("%.2f", response.result)
-                    else -> response.error?.info.toString()
+                when (response.success) {
+                    true -> conversionResult.value = String.format(DECIMAL, response.result)
+                    else -> showToastError(response.error?.info.toString())
                 }
             } catch (exception: Exception) {
-                conversionResult.value = exception.message.toString()
+                showToastError(exception.message.toString())
             } finally {
                 showProgress.value = false
             }
@@ -117,5 +143,13 @@ class HomeConversionViewModel @Inject constructor(
 
     fun hideKeyBoard() {
         _action.value = HomeConversionAction.HideKeyboard
+    }
+
+    private fun showToastError(message: String) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+    }
+
+    private companion object {
+        const val DECIMAL = "%.2f"
     }
 }

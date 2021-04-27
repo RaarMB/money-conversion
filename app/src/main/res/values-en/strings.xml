@@ -6,4 +6,5 @@
     <string name="home_result">Result</string>
     <string name="home_from">From</string>
     <string name="home_to">To</string>
+    <string name="home_conversion_rate">Conversion rate</string>
 </resources>
