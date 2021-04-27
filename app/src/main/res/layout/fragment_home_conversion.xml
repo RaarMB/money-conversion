@@ -100,7 +100,7 @@
                     android:id="@+id/autocompleteTextViewFrom"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="@={ viewModel.selectedMoneyItemFrom.id }"
+                    android:text="@{ viewModel.selectedMoneyItemFrom.id }"
                     android:textColor="@color/white" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -155,7 +155,7 @@
                     android:id="@+id/autocompleteTextViewTo"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="@={ viewModel.selectedMoneyItemTo.id }"
+                    android:text="@{ viewModel.selectedMoneyItemTo.id }"
                     android:textColor="@color/white" />
 
             </com.google.android.material.textfield.TextInputLayout>
