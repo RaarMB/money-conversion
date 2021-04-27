@@ -4,4 +4,6 @@
     <string name="home_instructions">Enter the amount to which you want to apply the conversion.</string>
     <string name="home_calculate">Calculate</string>
     <string name="home_result">Result</string>
+    <string name="home_from">From</string>
+    <string name="home_to">To</string>
 </resources>

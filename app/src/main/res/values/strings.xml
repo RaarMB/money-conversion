@@ -3,6 +3,8 @@
     <string name="home_instructions">Ingresa el monto al que quieres aplicar la conversión.</string>
     <string name="home_calculate">Calcular</string>
     <string name="home_result">Resultado</string>
+    <string name="home_from">De</string>
+    <string name="home_to">A</string>
 
     <string name="home_amount" translatable="false">$0.00</string>
 </resources>

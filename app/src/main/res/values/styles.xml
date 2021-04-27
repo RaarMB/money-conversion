@@ -12,6 +12,6 @@
         <item name="boxStrokeWidthFocused">0dp</item>
         <item name="boxCollapsedPaddingTop">1dp</item>
         <item name="endIconDrawable">@drawable/ic_arrow_right</item>
-        <item name="iconTint">@color/white</item>
+        <item name="endIconTint">@color/white</item>
     </style>
 </resources>
