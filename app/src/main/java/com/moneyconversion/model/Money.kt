@@ -1,10 +1,8 @@
 package com.moneyconversion.model
 
-import android.graphics.drawable.Drawable
-
 data class Money(
     var id: String,
-    val image: Drawable?,
+    val image: Int,
     val selected: Boolean
 ) {
     override fun toString() = id

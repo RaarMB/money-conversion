@@ -180,7 +180,7 @@
             android:layout_marginStart="@dimen/standard_margin_8dp"
             android:layout_marginTop="@dimen/standard_margin_8dp"
             android:layout_marginEnd="@dimen/standard_margin_8dp"
-            android:text="@{ viewModel.conversionRate }"
+            android:text="@{@string/home_conversion_rate(viewModel.conversionRate)}"
             android:textAlignment="center"
             android:textColor="@color/green"
             android:textSize="@dimen/standard_font_12sp"

@@ -1,8 +1,5 @@
 package com.moneyconversion.home
 
-import android.content.Context
-import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.MediatorLiveData
@@ -15,29 +12,27 @@ import com.moneyconversion.network.MoneyConversionRepository.Companion.USD_CODE
 import com.moneyconversion.R
 import com.moneyconversion.model.HomeConversionAction
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeConversionViewModel @Inject constructor(
-    private val repository: MoneyConversionRepository,
-    @ApplicationContext private val context: Context
+    private val repository: MoneyConversionRepository
 ) : ViewModel() {
 
     private val moneyList = listOf(
-        Money(MXN_CODE, ContextCompat.getDrawable(context, R.drawable.ic_mxn_flag), true),
-        Money(USD_CODE, ContextCompat.getDrawable(context, R.drawable.ic_usd_flag), false)
+        Money(MXN_CODE, R.drawable.ic_mxn_flag, true),
+        Money(USD_CODE, R.drawable.ic_usd_flag, false)
     )
 
     private var moniesFrom = listOf(
-        Money(MXN_CODE, ContextCompat.getDrawable(context, R.drawable.ic_mxn_flag), true),
-        Money(USD_CODE, ContextCompat.getDrawable(context, R.drawable.ic_usd_flag), false)
+        Money(MXN_CODE, R.drawable.ic_mxn_flag, true),
+        Money(USD_CODE, R.drawable.ic_usd_flag, false)
     )
 
     private var moniesTo = listOf(
-        Money(MXN_CODE, ContextCompat.getDrawable(context, R.drawable.ic_mxn_flag), false),
-        Money(USD_CODE, ContextCompat.getDrawable(context, R.drawable.ic_usd_flag), true)
+        Money(MXN_CODE, R.drawable.ic_mxn_flag, false),
+        Money(USD_CODE, R.drawable.ic_usd_flag, true)
     )
 
     fun getMoniesFrom() = MutableLiveData<List<Money>>().apply { value = moniesFrom }
@@ -88,16 +83,15 @@ class HomeConversionViewModel @Inject constructor(
             moneyList.first { it.id != money.id }.copy(selected = money.selected)
     }
 
-    fun getConversionRate() {
+    private fun getConversionRate() {
         viewModelScope.launch {
             showProgress.value = true
             try {
                 val response = repository.getConversionRate()
                 when (response.success) {
                     true -> conversionRate.value =
-                        "${context.resources.getString(R.string.home_conversion_rate)} $MXN_CODE = " +
-                                "$${String.format(DECIMAL, response.rates?.usd)} $USD_CODE - " +
-                                "${response.date}"
+                        "$MXN_CODE = $${String.format(DECIMAL, response.rates?.usd)} " +
+                                "$USD_CODE - ${response.date}"
                     else -> showToastError(response.error?.info.toString())
                 }
             } catch (exception: Exception) {
@@ -146,7 +140,7 @@ class HomeConversionViewModel @Inject constructor(
     }
 
     private fun showToastError(message: String) {
-        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+        _action.value = HomeConversionAction.Error(message)
     }
 
     private companion object {
